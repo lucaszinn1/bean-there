@@ -62,7 +62,7 @@ const FeaturedShops = () => {
         </div>
 
         <div className="text-center">
-          <Button variant="hero" size="lg">
+          <Button variant="mobile" size="lg">
             Explore All Locations
           </Button>
         </div>

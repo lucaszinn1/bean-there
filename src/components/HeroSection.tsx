@@ -35,7 +35,7 @@ const HeroSection = () => {
                   className="pl-10 h-12"
                 />
               </div>
-              <Button variant="hero" size="lg" className="h-12 px-8">
+              <Button variant="mobile" size="lg" className="h-12 px-8">
                 Find Spots
               </Button>
             </div>

@@ -94,7 +94,7 @@ const CoffeeShopCard = ({
           </div>
 
           {/* Action Button */}
-          <Button variant="coffee" className="w-full">
+          <Button variant="mobile" className="w-full">
             View Details
           </Button>
         </div>
