@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Zap, Wifi, Users } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const MobileHero = () => {
+  const navigate = useNavigate();
+  
   return (
     <section className="px-4 py-8 bg-gradient-bg">
       <div className="text-center space-y-6">
@@ -36,7 +39,7 @@ const MobileHero = () => {
         </div>
 
         {/* CTA Button */}
-        <Button variant="mobile" className="w-full max-w-xs mx-auto">
+        <Button variant="mobile" className="w-full max-w-xs mx-auto" onClick={() => navigate('/map')}>
           Explore Nearby
           <ArrowRight className="w-5 h-5" />
         </Button>
