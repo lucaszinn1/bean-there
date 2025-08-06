@@ -2,6 +2,7 @@ import MobileHeader from "@/components/MobileHeader";
 import MobileHero from "@/components/MobileHero";
 import MobileCoffeeShopCard from "@/components/MobileCoffeeShopCard";
 import MobileBottomNav from "@/components/MobileBottomNav";
+import MapView from "@/components/MapView";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
@@ -12,48 +13,52 @@ const nearbyShops = [
     image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&h=200&fit=crop",
     rating: 4.8,
     address: "123 Main St",
-    wifiSpeed: "50 Mbps",
+    wifiSpeed: "Fast",
     noiseLevel: "Quiet" as const,
     powerOutlets: true,
     openUntil: "10 PM",
     distance: "0.3 mi",
-    walkTime: "4 min"
+    walkTime: "4 min",
+    coordinates: [-74.006, 40.7128] as [number, number]
   },
   {
     name: "Brew & Work",
     image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400&h=200&fit=crop",
     rating: 4.6,
     address: "456 Oak Ave",
-    wifiSpeed: "35 Mbps",
+    wifiSpeed: "Average",
     noiseLevel: "Moderate" as const,
     powerOutlets: true,
     openUntil: "9 PM",
     distance: "0.7 mi",
-    walkTime: "8 min"
+    walkTime: "8 min",
+    coordinates: [-74.010, 40.7158] as [number, number]
   },
   {
     name: "Central Perk",
     image: "https://images.unsplash.com/photo-1453614482241-598e5dc1d180?w=400&h=200&fit=crop",
     rating: 4.5,
     address: "789 Broadway",
-    wifiSpeed: "40 Mbps",
+    wifiSpeed: "Average",
     noiseLevel: "Lively" as const,
     powerOutlets: false,
     openUntil: "8 PM",
     distance: "1.2 mi",
-    walkTime: "12 min"
+    walkTime: "12 min",
+    coordinates: [-74.000, 40.7100] as [number, number]
   },
   {
     name: "Code & Coffee",
     image: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400&h=200&fit=crop",
     rating: 4.9,
     address: "321 Tech Blvd",
-    wifiSpeed: "75 Mbps",
+    wifiSpeed: "Fast",
     noiseLevel: "Quiet" as const,
     powerOutlets: true,
     openUntil: "11 PM",
     distance: "0.5 mi",
-    walkTime: "6 min"
+    walkTime: "6 min",
+    coordinates: [-74.008, 40.7140] as [number, number]
   }
 ];
 
@@ -62,6 +67,11 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <MobileHeader />
       <MobileHero />
+      
+      {/* Map View */}
+      <section className="py-4">
+        <MapView coffeeShops={nearbyShops} />
+      </section>
       
       {/* Coffee Shops List */}
       <section className="px-4 py-6">
