@@ -28,17 +28,11 @@ const MobileCoffeeShopCard = ({
   distance,
   walkTime
 }: MobileCoffeeShopCardProps) => {
-  const getNoiseColor = (level: string) => {
-    switch (level) {
-      case "Quiet":
-        return "bg-green-50 text-green-700 border-green-200";
-      case "Moderate":
-        return "bg-yellow-50 text-yellow-700 border-yellow-200";
-      case "Lively":
-        return "bg-orange-50 text-orange-700 border-orange-200";
-      default:
-        return "bg-gray-50 text-gray-700 border-gray-200";
-    }
+  const getWifiLabel = (speed: string) => {
+    const mbps = parseInt(speed);
+    if (mbps >= 50) return "Fast";
+    if (mbps >= 25) return "Average";
+    return "Slow";
   };
 
   return (
@@ -80,24 +74,19 @@ const MobileCoffeeShopCard = ({
         <div className="grid grid-cols-2 gap-2 text-sm">
           <div className="flex items-center gap-2 p-2 bg-secondary rounded-lg">
             <Wifi className="w-4 h-4 text-primary" />
-            <span className="font-medium">{wifiSpeed}</span>
+            <span className="font-medium">{getWifiLabel(wifiSpeed)}</span>
           </div>
           <div className="flex items-center gap-2 p-2 bg-secondary rounded-lg">
             <Zap className={`w-4 h-4 ${powerOutlets ? 'text-green-600' : 'text-gray-400'}`} />
             <span className="font-medium">{powerOutlets ? 'Outlets' : 'No outlets'}</span>
           </div>
-        </div>
-
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 p-2 bg-secondary rounded-lg">
             <Volume2 className="w-4 h-4 text-primary" />
-            <Badge variant="outline" className={`text-xs ${getNoiseColor(noiseLevel)}`}>
-              {noiseLevel}
-            </Badge>
+            <span className="font-medium">{noiseLevel}</span>
           </div>
-          <div className="flex items-center gap-1 text-muted-foreground text-sm">
-            <Clock className="w-3 h-3" />
-            <span>Until {openUntil}</span>
+          <div className="flex items-center gap-2 p-2 bg-secondary rounded-lg">
+            <Clock className="w-4 h-4 text-primary" />
+            <span className="font-medium">Until {openUntil}</span>
           </div>
         </div>
 

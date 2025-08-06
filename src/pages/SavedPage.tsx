@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import MobileBottomNav from "@/components/MobileBottomNav";
 import { Star, MapPin, Heart, Share, Navigation, Trash2 } from "lucide-react";
 
 const SavedPage = () => {
@@ -157,6 +158,7 @@ const SavedPage = () => {
       </div>
 
       <div className="h-20" />
+      <MobileBottomNav />
     </div>
   );
 };

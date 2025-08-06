@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import MobileBottomNav from "@/components/MobileBottomNav";
 import { Search as SearchIcon, SlidersHorizontal, MapPin, Clock, Star, Wifi, Zap, Volume2 } from "lucide-react";
 
 const SearchPage = () => {
@@ -123,6 +124,7 @@ const SearchPage = () => {
       </div>
 
       <div className="h-20" />
+      <MobileBottomNav />
     </div>
   );
 };

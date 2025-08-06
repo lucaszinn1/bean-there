@@ -9,7 +9,7 @@ const MobileHero = () => {
         {/* Hero Text */}
         <div className="space-y-4">
           <Badge variant="secondary" className="mx-auto">
-            <Zap className="w-4 h-4 mr-2" />
+            <Users className="w-4 h-4 mr-2" />
             Perfect for Remote Work
           </Badge>
           
@@ -18,7 +18,7 @@ const MobileHero = () => {
             <span className="text-primary block">Best Coffee Shops</span>
           </h2>
           
-          <p className="text-muted-foreground text-lg leading-relaxed max-w-sm mx-auto">
+          <p className="text-muted-foreground text-base leading-relaxed max-w-sm mx-auto">
             Discover spaces with fast WiFi, power outlets, and the perfect atmosphere for productivity
           </p>
         </div>
