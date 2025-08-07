@@ -20,40 +20,76 @@ interface CoffeeShop {
 
 const coffeeShops: CoffeeShop[] = [
   {
-    name: "The Daily Grind",
-    address: "123 Main St",
+    name: "Blue Bottle Coffee",
+    address: "150 Greenwich St, NYC",
     rating: 4.8,
     wifiSpeed: "Fast",
     noiseLevel: "Quiet",
     powerOutlets: true,
-    coordinates: [-74.006, 40.7128]
+    coordinates: [-74.0121, 40.7106]
   },
   {
-    name: "Brew & Work",
-    address: "456 Oak Ave",
+    name: "Joe Coffee Company",
+    address: "141 Waverly Pl, NYC",
     rating: 4.6,
-    wifiSpeed: "Average",
+    wifiSpeed: "Fast",
     noiseLevel: "Moderate",
     powerOutlets: true,
-    coordinates: [-74.010, 40.7158]
+    coordinates: [-74.0021, 40.7325]
   },
   {
-    name: "Central Perk",
-    address: "789 Broadway",
-    rating: 4.5,
-    wifiSpeed: "Average",
-    noiseLevel: "Lively",
-    powerOutlets: false,
-    coordinates: [-74.000, 40.7100]
-  },
-  {
-    name: "Code & Coffee",
-    address: "321 Tech Blvd",
-    rating: 4.9,
+    name: "Stumptown Coffee",
+    address: "30 W 8th St, NYC",
+    rating: 4.7,
     wifiSpeed: "Fast",
     noiseLevel: "Quiet",
     powerOutlets: true,
-    coordinates: [-74.008, 40.7140]
+    coordinates: [-73.9965, 40.7328]
+  },
+  {
+    name: "Irving Farm Coffee",
+    address: "71 Irving Pl, NYC",
+    rating: 4.5,
+    wifiSpeed: "Average",
+    noiseLevel: "Moderate",
+    powerOutlets: true,
+    coordinates: [-73.9870, 40.7368]
+  },
+  {
+    name: "La Colombe Coffee",
+    address: "270 Lafayette St, NYC",
+    rating: 4.4,
+    wifiSpeed: "Average",
+    noiseLevel: "Lively",
+    powerOutlets: false,
+    coordinates: [-73.9925, 40.7256]
+  },
+  {
+    name: "Birch Coffee",
+    address: "96 7th Ave, NYC",
+    rating: 4.6,
+    wifiSpeed: "Fast",
+    noiseLevel: "Quiet",
+    powerOutlets: true,
+    coordinates: [-74.0021, 40.7423]
+  },
+  {
+    name: "Gregorys Coffee",
+    address: "200 Broadway, NYC",
+    rating: 4.3,
+    wifiSpeed: "Average",
+    noiseLevel: "Moderate",
+    powerOutlets: true,
+    coordinates: [-74.0089, 40.7107]
+  },
+  {
+    name: "Think Coffee",
+    address: "248 Mercer St, NYC",
+    rating: 4.5,
+    wifiSpeed: "Fast",
+    noiseLevel: "Moderate",
+    powerOutlets: true,
+    coordinates: [-73.9957, 40.7282]
   }
 ];
 
