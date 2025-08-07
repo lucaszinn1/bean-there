@@ -10,7 +10,7 @@ const MobileHeader = () => {
           {/* Logo */}
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <img src="/lovable-uploads/2a690f24-dfd3-4872-b192-5c66f2f090b2.png" alt="Bean There Logo" className="w-6 h-6 object-contain" />
+              <img src="/lovable-uploads/db84e74d-d4ad-4163-96d0-cdc26c7ef469.png" alt="Bean There Logo" className="w-6 h-6 object-contain" />
             </div>
             <div>
               <h1 className="text-lg font-bold text-foreground">Bean There</h1>
