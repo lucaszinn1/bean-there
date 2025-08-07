@@ -112,15 +112,8 @@ const MapView: React.FC<MapViewProps> = ({
       setTokenEntered(true);
     }
   };
-    if (!tokenEntered) {
-    return (
-      <div className="relative w-full h-[400px] mx-4 rounded-xl overflow-hidden shadow-lg bg-secondary flex items-center justify-center">
-        <div className="text-center p-6">
-          <Coffee className="w-12 h-12 text-primary mx-auto mb-4" />
-          <p className="text-muted-foreground">Map requires Mapbox token</p>
-        </div>
-      </div>
-    );
+  if (!tokenEntered) {
+    return;
   }
   return <div className="relative w-full h-[400px] mx-4 rounded-xl overflow-hidden shadow-lg">
       <div ref={mapContainer} className="absolute inset-0" />
