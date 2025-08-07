@@ -2,13 +2,10 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Zap, Wifi, Users } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-
 const MobileHero = () => {
   const navigate = useNavigate();
-  
-  return (
-    <section className="px-4 py-8 bg-gradient-bg">
-      <div className="text-center space-y-6">
+  return <section className="px-4 py-8 bg-gradient-bg">
+      <div className="text-center space-y-6 mx-0">
         {/* Hero Text */}
         <div className="space-y-4">
           <Badge variant="secondary" className="mx-auto">
@@ -27,16 +24,7 @@ const MobileHero = () => {
         </div>
 
         {/* Quick Stats */}
-        <div className="flex justify-center gap-6 text-sm">
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <Users className="w-4 h-4 text-primary" />
-            <span>500+ Spots</span>
-          </div>
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <Wifi className="w-4 h-4 text-primary" />
-            <span>Verified WiFi</span>
-          </div>
-        </div>
+        
 
         {/* CTA Button */}
         <Button variant="mobile" className="w-full max-w-xs mx-auto" onClick={() => navigate('/map')}>
@@ -44,8 +32,6 @@ const MobileHero = () => {
           <ArrowRight className="w-5 h-5" />
         </Button>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default MobileHero;
