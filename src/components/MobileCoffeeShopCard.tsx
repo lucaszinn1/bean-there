@@ -77,7 +77,7 @@ const MobileCoffeeShopCard = ({
             <span className="font-medium">{getWifiLabel(wifiSpeed)}</span>
           </div>
           <div className="flex items-center gap-2 p-2 bg-secondary rounded-lg">
-            <Zap className={`w-4 h-4 ${powerOutlets ? 'text-green-600' : 'text-gray-400'}`} />
+            <Zap className={`w-4 h-4 ${powerOutlets ? 'text-primary' : 'text-muted-foreground'}`} />
             <span className="font-medium">{powerOutlets ? 'Outlets' : 'No outlets'}</span>
           </div>
           <div className="flex items-center gap-2 p-2 bg-secondary rounded-lg">

@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { useNavigate } from 'react-router-dom';
+import MobileBottomNav from '@/components/MobileBottomNav';
 
 interface CoffeeShop {
   name: string;
@@ -204,8 +205,13 @@ const MapPage = () => {
       </div>
       
       {/* Full Screen Map */}
-      <div className="absolute inset-0 pt-16">
+      <div className="absolute inset-0 pt-16 pb-20">
         <div ref={mapContainer} className="w-full h-full" />
+      </div>
+      
+      {/* Bottom Navigation */}
+      <div className="absolute bottom-0 left-0 right-0">
+        <MobileBottomNav />
       </div>
     </div>
   );

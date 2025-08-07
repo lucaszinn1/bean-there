@@ -26,18 +26,6 @@ const CoffeeShopCard = ({
   openUntil,
   distance
 }: CoffeeShopCardProps) => {
-  const getNoiseColor = (level: string) => {
-    switch (level) {
-      case "Quiet":
-        return "bg-green-100 text-green-800";
-      case "Moderate":
-        return "bg-yellow-100 text-yellow-800";
-      case "Lively":
-        return "bg-orange-100 text-orange-800";
-      default:
-        return "bg-gray-100 text-gray-800";
-    }
-  };
 
   return (
     <Card className="group hover:shadow-card transition-all duration-300 hover:-translate-y-1 overflow-hidden">
@@ -74,22 +62,28 @@ const CoffeeShopCard = ({
           {/* Features */}
           <div className="grid grid-cols-2 gap-3 text-sm">
             <div className="flex items-center gap-2">
-              <Wifi className="w-4 h-4 text-blue-600" />
-              <span>{wifiSpeed}</span>
+              <Wifi className="w-4 h-4 text-primary" />
+              <Badge variant="outline" className="text-xs bg-secondary text-secondary-foreground">
+                {wifiSpeed}
+              </Badge>
             </div>
             <div className="flex items-center gap-2">
-              <Zap className={`w-4 h-4 ${powerOutlets ? 'text-green-600' : 'text-gray-400'}`} />
-              <span>{powerOutlets ? 'Outlets' : 'No outlets'}</span>
+              <Zap className={`w-4 h-4 ${powerOutlets ? 'text-primary' : 'text-muted-foreground'}`} />
+              <Badge variant="outline" className="text-xs bg-secondary text-secondary-foreground">
+                {powerOutlets ? 'Outlets' : 'No outlets'}
+              </Badge>
             </div>
             <div className="flex items-center gap-2">
-              <Volume2 className="w-4 h-4 text-purple-600" />
-              <Badge variant="outline" className={`text-xs ${getNoiseColor(noiseLevel)} border-none`}>
+              <Volume2 className="w-4 h-4 text-primary" />
+              <Badge variant="outline" className="text-xs bg-secondary text-secondary-foreground">
                 {noiseLevel}
               </Badge>
             </div>
             <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4 text-orange-600" />
-              <span className="text-muted-foreground">Until {openUntil}</span>
+              <Clock className="w-4 h-4 text-primary" />
+              <Badge variant="outline" className="text-xs bg-secondary text-secondary-foreground">
+                Until {openUntil}
+              </Badge>
             </div>
           </div>
 
