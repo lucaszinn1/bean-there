@@ -4,7 +4,7 @@ import { ArrowRight, Zap, Wifi, Users } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 const MobileHero = () => {
   const navigate = useNavigate();
-  return <section className="px-4 py-8 bg-gradient-bg">
+  return <section className="bg-gradient-bg px-[16px] py-[32px]">
       <div className="text-center space-y-6 mx-0">
         {/* Hero Text */}
         <div className="space-y-4">
