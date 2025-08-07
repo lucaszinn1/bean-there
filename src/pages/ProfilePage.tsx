@@ -76,7 +76,7 @@ const ProfilePage = () => {
             </Avatar>
             <div className="flex-1">
               <h1 className="text-xl font-bold">David Zhang</h1>
-              <p className="text-primary-foreground/80">Remote Developer</p>
+              <p className="text-primary-foreground/80">VP, Media & People Operations at VaynerMedia</p>
               <div className="flex items-center gap-2 mt-1">
                 <MapPin className="w-4 h-4" />
                 <span className="text-sm">San Francisco, CA</span>
