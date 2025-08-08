@@ -1,8 +1,16 @@
 import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { Icon } from 'leaflet';
+import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Coffee } from 'lucide-react';
+
+// Fix default icons
+delete (L.Icon.Default.prototype as any)._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+});
 interface CoffeeShop {
   name: string;
   address: string;
@@ -16,10 +24,10 @@ interface MapViewProps {
   coffeeShops: CoffeeShop[];
 }
 // Create custom coffee shop icon
-const coffeeIcon = new Icon({
+const coffeeIcon = new L.Icon({
   iconUrl: 'data:image/svg+xml;base64,' + btoa(`
     <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="20" cy="20" r="18" fill="hsl(var(--primary))" stroke="white" stroke-width="3"/>
+      <circle cx="20" cy="20" r="18" fill="#8B5CF6" stroke="white" stroke-width="3"/>
       <svg x="10" y="10" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
         <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
         <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
