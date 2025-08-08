@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Star, Wifi, Zap, Volume2, Clock, MapPin, Navigation } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface MobileCoffeeShopCardProps {
   name: string;
@@ -28,6 +29,14 @@ const MobileCoffeeShopCard = ({
   distance,
   walkTime
 }: MobileCoffeeShopCardProps) => {
+  const navigate = useNavigate();
+  
+  // Convert name to URL-friendly ID
+  const shopId = name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+  
+  const handleViewDetails = () => {
+    navigate(`/coffee-shop/${shopId}`);
+  };
   const getWifiLabel = (speed: string) => {
     const mbps = parseInt(speed);
     if (mbps >= 50) return "Fast";
@@ -91,7 +100,7 @@ const MobileCoffeeShopCard = ({
         </div>
 
         {/* Action Button */}
-        <Button variant="mobile" className="w-full">
+        <Button variant="mobile" className="w-full" onClick={handleViewDetails}>
           View Details
         </Button>
       </CardContent>
