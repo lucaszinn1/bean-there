@@ -113,9 +113,34 @@ const MapView: React.FC<MapViewProps> = ({
     }
   };
   if (!tokenEntered) {
-    return;
+    return (
+      <Card className="p-6 text-center max-w-md mx-auto">
+        <Coffee className="w-12 h-12 text-primary mx-auto mb-4" />
+        <h3 className="text-lg font-semibold mb-2">MapBox Integration</h3>
+        <p className="text-sm text-muted-foreground mb-4">
+          Enter your MapBox public token to view coffee shop locations on the map.
+          Get your token at{' '}
+          <a href="https://mapbox.com/" target="_blank" rel="noopener noreferrer" className="text-primary underline">
+            mapbox.com
+          </a>
+        </p>
+        <div className="space-y-3">
+          <Input
+            type="password"
+            placeholder="Enter MapBox public token..."
+            value={mapboxToken}
+            onChange={(e) => setMapboxToken(e.target.value)}
+            className="w-full"
+          />
+          <Button onClick={handleTokenSubmit} className="w-full" disabled={!mapboxToken.trim()}>
+            Load Map
+          </Button>
+        </div>
+      </Card>
+    );
   }
-  return <div className="relative w-full h-[400px] mx-4 rounded-xl overflow-hidden shadow-lg">
+
+  return <div className="relative w-full h-[400px] rounded-xl overflow-hidden shadow-lg">
       <div ref={mapContainer} className="absolute inset-0" />
     </div>;
 };

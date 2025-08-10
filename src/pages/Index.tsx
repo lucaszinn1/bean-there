@@ -129,8 +129,9 @@ const Index = () => {
       <MobileHero />
       
       {/* Map View */}
-      
-      
+      <section className="px-4 py-6">
+        <MapView coffeeShops={visibleShops} />
+      </section>
       {/* Coffee Shops List */}
       <section className="px-4 py-6">
         <div className="space-y-4">
@@ -166,6 +167,8 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Bottom spacing to prevent navigation overlap */}
+      <div className="pb-24" />
       <MobileBottomNav />
     </div>;
 };
