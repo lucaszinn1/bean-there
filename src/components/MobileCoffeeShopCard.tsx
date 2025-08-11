@@ -5,6 +5,7 @@ import { Star, Wifi, Zap, Volume2, Clock, MapPin, Navigation } from "lucide-reac
 import { useNavigate } from "react-router-dom";
 
 interface MobileCoffeeShopCardProps {
+  id?: string;
   name: string;
   image: string;
   rating: number;
@@ -18,6 +19,7 @@ interface MobileCoffeeShopCardProps {
 }
 
 const MobileCoffeeShopCard = ({
+  id,
   name,
   image,
   rating,
@@ -31,8 +33,8 @@ const MobileCoffeeShopCard = ({
 }: MobileCoffeeShopCardProps) => {
   const navigate = useNavigate();
   
-  // Convert name to URL-friendly ID
-  const shopId = name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+  // Use provided ID or convert name to URL-friendly ID
+  const shopId = id || name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
   
   const handleViewDetails = () => {
     navigate(`/coffee-shop/${shopId}`);

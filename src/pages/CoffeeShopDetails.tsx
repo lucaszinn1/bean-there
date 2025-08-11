@@ -144,11 +144,49 @@ const coffeeShops = [
   }
 ];
 
+// Generate fallback details for dynamically created coffee shops
+const generateCoffeeShopDetails = (id: string) => {
+  const nameFromId = id.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ').replace(/\d+$/, '').trim();
+  
+  return {
+    id,
+    name: nameFromId,
+    image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&h=200&fit=crop",
+    rating: Math.round((3.8 + Math.random() * 1.2) * 10) / 10,
+    address: "NYC",
+    wifiSpeed: `${25 + Math.floor(Math.random() * 40)} Mbps`,
+    noiseLevel: ["Quiet", "Moderate", "Lively"][Math.floor(Math.random() * 3)] as "Quiet" | "Moderate" | "Lively",
+    powerOutlets: Math.random() > 0.2,
+    openUntil: ["7 PM", "8 PM", "9 PM"][Math.floor(Math.random() * 3)],
+    distance: `${(1.0 + Math.random() * 2).toFixed(1)} mi`,
+    walkTime: `${Math.floor(15 + Math.random() * 20)} min`,
+    coordinates: [-74.0060 + (Math.random() - 0.5) * 0.08, 40.7128 + (Math.random() - 0.5) * 0.05] as [number, number],
+    description: `${nameFromId} offers a welcoming atmosphere perfect for both work and relaxation. Known for quality coffee and comfortable seating.`,
+    amenities: ["Free WiFi", "Power Outlets", "Comfortable Seating", "Quality Coffee", "Work Friendly"],
+    hours: {
+      monday: "7:00 AM - 8:00 PM",
+      tuesday: "7:00 AM - 8:00 PM",
+      wednesday: "7:00 AM - 8:00 PM",
+      thursday: "7:00 AM - 8:00 PM",
+      friday: "7:00 AM - 8:00 PM",
+      saturday: "8:00 AM - 8:00 PM",
+      sunday: "8:00 AM - 7:00 PM"
+    },
+    phone: "(212) 555-0000",
+    website: "https://example.com"
+  };
+};
+
 const CoffeeShopDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   
-  const shop = coffeeShops.find(shop => shop.id === id);
+  let shop = coffeeShops.find(shop => shop.id === id);
+  
+  // If shop not found in static data, generate details dynamically
+  if (!shop && id) {
+    shop = generateCoffeeShopDetails(id);
+  }
   
   if (!shop) {
     return (
