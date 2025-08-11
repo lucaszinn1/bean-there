@@ -32,7 +32,31 @@ const coffeeShops = [
       sunday: "7:00 AM - 7:00 PM"
     },
     phone: "(212) 219-0140",
-    website: "https://bluebottlecoffee.com"
+    website: "https://bluebottlecoffee.com",
+    reviews: [
+      {
+        username: "Sarah M.",
+        rating: 5,
+        text: "Perfect spot for remote work! WiFi is super fast and the atmosphere is so peaceful. Coffee quality is outstanding.",
+        date: "2 days ago",
+        topics: ["WiFi", "Atmosphere", "Coffee Quality"]
+      },
+      {
+        username: "Mike C.",
+        rating: 5,
+        text: "Love the outlet availability here. Never had trouble finding a spot to plug in my laptop. Staff is very friendly too.",
+        date: "1 week ago",
+        topics: ["Outlets", "Staff", "Seating"]
+      },
+      {
+        username: "Jennifer L.",
+        rating: 4,
+        text: "Great coffee and quiet environment. Sometimes gets busy during lunch hours but overall excellent for studying.",
+        date: "2 weeks ago",
+        topics: ["Noise Level", "Coffee Quality", "Seating"]
+      }
+    ],
+    totalReviews: 28
   },
   {
     id: "joe-coffee-company",
@@ -59,7 +83,31 @@ const coffeeShops = [
       sunday: "7:30 AM - 8:00 PM"
     },
     phone: "(212) 924-7400",
-    website: "https://joecoffee.com"
+    website: "https://joecoffee.com",
+    reviews: [
+      {
+        username: "David K.",
+        rating: 5,
+        text: "Great community vibe! Perfect for meetings or just working solo. WiFi speed is solid and plenty of seating options.",
+        date: "3 days ago",
+        topics: ["Atmosphere", "WiFi", "Seating", "Meetings"]
+      },
+      {
+        username: "Lisa R.",
+        rating: 4,
+        text: "Coffee is excellent and staff is always helpful. Gets a bit noisy during peak hours but manageable.",
+        date: "5 days ago",
+        topics: ["Coffee Quality", "Staff", "Noise Level"]
+      },
+      {
+        username: "Tom H.",
+        rating: 5,
+        text: "Love the light meal options here. Great spot to spend a whole afternoon working. Outlets everywhere!",
+        date: "1 week ago",
+        topics: ["Food", "Outlets", "Seating"]
+      }
+    ],
+    totalReviews: 34
   },
   {
     id: "stumptown-coffee",
@@ -86,7 +134,31 @@ const coffeeShops = [
       sunday: "8:00 AM - 6:00 PM"
     },
     phone: "(212) 677-5727",
-    website: "https://stumptowncoffee.com"
+    website: "https://stumptowncoffee.com",
+    reviews: [
+      {
+        username: "Amanda P.",
+        rating: 5,
+        text: "Absolutely love the quiet atmosphere here! Perfect for deep focus work. The artisan pastries are amazing too.",
+        date: "1 day ago",
+        topics: ["Noise Level", "Food", "Atmosphere"]
+      },
+      {
+        username: "Carlos M.",
+        rating: 5,
+        text: "Premium coffee quality as expected from Stumptown. Great power outlet availability and comfortable seating.",
+        date: "4 days ago",
+        topics: ["Coffee Quality", "Outlets", "Seating"]
+      },
+      {
+        username: "Rachel W.",
+        rating: 4,
+        text: "Excellent study spot. WiFi is reliable and the environment really helps with productivity. Closes a bit early though.",
+        date: "1 week ago",
+        topics: ["WiFi", "Atmosphere", "Hours"]
+      }
+    ],
+    totalReviews: 22
   },
   {
     id: "irving-farm-coffee",
@@ -113,7 +185,31 @@ const coffeeShops = [
       sunday: "7:00 AM - 7:00 PM"
     },
     phone: "(212) 995-5252",
-    website: "https://irvingfarm.com"
+    website: "https://irvingfarm.com",
+    reviews: [
+      {
+        username: "Emily J.",
+        rating: 5,
+        text: "Such a cozy atmosphere! The farm-to-cup coffee is exceptional and the fresh bakes are perfect for a long work session.",
+        date: "2 days ago",
+        topics: ["Atmosphere", "Coffee Quality", "Food"]
+      },
+      {
+        username: "Alex B.",
+        rating: 4,
+        text: "Really laptop-friendly environment. Good WiFi and plenty of outlets. The moderate noise level is just right for focus.",
+        date: "6 days ago",
+        topics: ["WiFi", "Outlets", "Noise Level", "Seating"]
+      },
+      {
+        username: "Maria S.",
+        rating: 4,
+        text: "Been coming here since college! Staff remembers regulars and the atmosphere is always welcoming. A NYC classic.",
+        date: "1 week ago",
+        topics: ["Staff", "Atmosphere", "Coffee Quality"]
+      }
+    ],
+    totalReviews: 19
   },
   {
     id: "la-colombe-coffee",
@@ -140,13 +236,62 @@ const coffeeShops = [
       sunday: "7:30 AM - 8:00 PM"
     },
     phone: "(212) 625-8585",
-    website: "https://lacolombe.com"
+    website: "https://lacolombe.com",
+    reviews: [
+      {
+        username: "Jake T.",
+        rating: 4,
+        text: "Love the trendy vibe and innovative coffee drinks! Great social atmosphere, though can get busy. Limited outlets but WiFi works well.",
+        date: "3 days ago",
+        topics: ["Atmosphere", "Coffee Quality", "Outlets", "WiFi"]
+      },
+      {
+        username: "Sophie L.",
+        rating: 5,
+        text: "Perfect for creative work and brainstorming! The energy here is infectious and the pastries are fresh and delicious.",
+        date: "5 days ago",
+        topics: ["Atmosphere", "Food", "Noise Level"]
+      },
+      {
+        username: "Mark D.",
+        rating: 4,
+        text: "Great coffee innovation and social space. Not the quietest for deep focus work but excellent for collaborative projects.",
+        date: "1 week ago",
+        topics: ["Coffee Quality", "Atmosphere", "Noise Level"]
+      }
+    ],
+    totalReviews: 31
   }
 ];
 
 // Generate fallback details for dynamically created coffee shops
 const generateCoffeeShopDetails = (id: string) => {
   const nameFromId = id.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ').replace(/\d+$/, '').trim();
+  
+  // Generate sample reviews for dynamic shops
+  const sampleReviews = [
+    {
+      username: "Coffee Lover",
+      rating: 5,
+      text: "Great spot for remote work! Fast WiFi and comfortable seating make this my go-to place.",
+      date: "2 days ago",
+      topics: ["WiFi", "Seating", "Atmosphere"]
+    },
+    {
+      username: "Remote Worker",
+      rating: 4,
+      text: "Good coffee quality and decent noise level for focus. Power outlets are available throughout.",
+      date: "1 week ago",
+      topics: ["Coffee Quality", "Noise Level", "Outlets"]
+    },
+    {
+      username: "Student",
+      rating: 4,
+      text: "Perfect study environment. Staff is friendly and the atmosphere is welcoming for long work sessions.",
+      date: "3 days ago",
+      topics: ["Staff", "Atmosphere", "Seating"]
+    }
+  ];
   
   return {
     id,
@@ -173,7 +318,9 @@ const generateCoffeeShopDetails = (id: string) => {
       sunday: "8:00 AM - 7:00 PM"
     },
     phone: "(212) 555-0000",
-    website: "https://example.com"
+    website: "https://example.com",
+    reviews: sampleReviews,
+    totalReviews: Math.floor(15 + Math.random() * 25)
   };
 };
 
@@ -237,6 +384,7 @@ const CoffeeShopDetails = () => {
           <div className="flex items-center gap-2 bg-background/90 px-3 py-2 rounded-full">
             <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
             <span className="font-semibold">{shop.rating}</span>
+            <span className="text-sm text-muted-foreground">• {shop.totalReviews} reviews</span>
           </div>
           <Badge variant="secondary" className="bg-background/90">
             {shop.distance}
@@ -336,6 +484,57 @@ const CoffeeShopDetails = () => {
               ))}
             </CardContent>
           </Card>
+        </div>
+
+        {/* Reviews Section */}
+        <div>
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold">Reviews</h3>
+            <div className="flex items-center gap-1">
+              <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+              <span className="font-semibold">{shop.rating}</span>
+              <span className="text-muted-foreground">• {shop.totalReviews} reviews</span>
+            </div>
+          </div>
+          
+          <div className="space-y-4">
+            {shop.reviews?.slice(0, 3).map((review, index) => (
+              <Card key={index}>
+                <CardContent className="p-4">
+                  <div className="flex items-start justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium">{review.username}</span>
+                      <div className="flex">
+                        {[...Array(5)].map((_, i) => (
+                          <Star
+                            key={i}
+                            className={`w-3 h-3 ${
+                              i < review.rating
+                                ? "fill-yellow-400 text-yellow-400"
+                                : "text-muted-foreground"
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                    <span className="text-sm text-muted-foreground">{review.date}</span>
+                  </div>
+                  <p className="text-muted-foreground mb-2">{review.text}</p>
+                  <div className="flex flex-wrap gap-1">
+                    {review.topics.map((topic, i) => (
+                      <Badge key={i} variant="outline" className="text-xs">
+                        {topic}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          
+          <Button variant="outline" className="w-full mt-4">
+            See All {shop.totalReviews} Reviews
+          </Button>
         </div>
 
         {/* Contact */}
