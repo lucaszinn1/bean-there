@@ -5,6 +5,7 @@ import CoffeeShopCard from "./CoffeeShopCard";
 // Mock data for featured coffee shops
 const featuredShops = [
   {
+    id: "the-grind-coffee",
     name: "The Grind Coffee",
     image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&h=300&fit=crop",
     rating: 4.8,
@@ -16,6 +17,7 @@ const featuredShops = [
     distance: "0.3 mi"
   },
   {
+    id: "brew-work",
     name: "Brew & Work",
     image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400&h=300&fit=crop",
     rating: 4.6,
@@ -27,6 +29,7 @@ const featuredShops = [
     distance: "0.7 mi"
   },
   {
+    id: "central-perk",
     name: "Central Perk",
     image: "https://images.unsplash.com/photo-1453614482241-598e5dc1d180?w=400&h=300&fit=crop",
     rating: 4.5,
@@ -57,7 +60,7 @@ const FeaturedShops = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {featuredShops.map((shop, index) => (
-            <CoffeeShopCard key={index} {...shop} />
+            <CoffeeShopCard key={index} id={shop.id} {...shop} />
           ))}
         </div>
 

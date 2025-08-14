@@ -2,8 +2,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Star, Wifi, Zap, Volume2, Clock, MapPin } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface CoffeeShopCardProps {
+  id?: string;
   name: string;
   image: string;
   rating: number;
@@ -16,6 +18,7 @@ interface CoffeeShopCardProps {
 }
 
 const CoffeeShopCard = ({
+  id,
   name,
   image,
   rating,
@@ -26,6 +29,16 @@ const CoffeeShopCard = ({
   openUntil,
   distance
 }: CoffeeShopCardProps) => {
+  const navigate = useNavigate();
+  
+  // Use provided ID or convert name to URL-friendly ID
+  const shopId = id || name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+  
+  const handleViewDetails = () => {
+    // Scroll to top before navigation to ensure clean transition
+    window.scrollTo(0, 0);
+    navigate(`/coffee-shop/${shopId}`);
+  };
 
   return (
     <Card className="group hover:shadow-card transition-all duration-300 hover:-translate-y-1 overflow-hidden">
@@ -88,7 +101,7 @@ const CoffeeShopCard = ({
           </div>
 
           {/* Action Button */}
-          <Button variant="mobile" className="w-full">
+          <Button variant="mobile" className="w-full" onClick={handleViewDetails}>
             View Details
           </Button>
         </div>

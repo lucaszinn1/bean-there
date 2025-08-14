@@ -37,6 +37,8 @@ const MobileCoffeeShopCard = ({
   const shopId = id || name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
   
   const handleViewDetails = () => {
+    // Scroll to top before navigation to ensure clean transition
+    window.scrollTo(0, 0);
     navigate(`/coffee-shop/${shopId}`);
   };
   const getWifiLabel = (speed: string) => {
