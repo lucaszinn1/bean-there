@@ -35,8 +35,10 @@ const CoffeeShopCard = ({
   const shopId = id || name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
   
   const handleViewDetails = () => {
-    // Scroll to top before navigation to ensure clean transition
-    window.scrollTo(0, 0);
+    // Force scroll to top before navigation
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
     navigate(`/coffee-shop/${shopId}`);
   };
 

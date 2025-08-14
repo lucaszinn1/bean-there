@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { ArrowLeft, Star, Wifi, Zap, Volume2, Clock, MapPin, Navigation, Heart, Share } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -329,10 +329,19 @@ const CoffeeShopDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   
-  // Always scroll to top when component mounts
+  // Force scroll to top immediately when component mounts
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, []);
+  
+  // Additional scroll to top when ID changes
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [id]); // Re-run when the coffee shop ID changes
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, [id]);
   
   let shop = coffeeShops.find(shop => shop.id === id);
   
