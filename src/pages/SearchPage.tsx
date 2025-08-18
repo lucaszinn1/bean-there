@@ -5,17 +5,17 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import MobileBottomNav from "@/components/MobileBottomNav";
 import MobileCoffeeShopCard from "@/components/MobileCoffeeShopCard";
-import { Search as SearchIcon, SlidersHorizontal, MapPin, Clock, Star, Wifi, Zap, Volume2, Quote } from "lucide-react";
+import { Search as SearchIcon, SlidersHorizontal, MapPin, Clock, Star, Wifi, Zap, Volume2, Quote, Building2 } from "lucide-react";
 
 // Enhanced coffee shop data with detailed reviews and attributes
-const allCoffeeShops = [
-  {
+const allCoffeeShops = [{
     id: "blue-bottle-coffee",
     name: "Blue Bottle Coffee",
     image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&h=200&fit=crop",
     rating: 4.8,
     address: "150 Greenwich St, NYC",
     location: "downtown",
+    neighborhood: "Financial District",
     wifiSpeed: "50 Mbps",
     noiseLevel: "Quiet" as const,
     powerOutlets: true,
@@ -24,7 +24,7 @@ const allCoffeeShops = [
     walkTime: "3 min",
     coordinates: [-74.0121, 40.7106] as [number, number],
     amenities: ["Free WiFi", "Power Outlets", "Quiet Environment", "Specialty Coffee", "Pastries", "Work-Friendly"],
-    tags: ["quiet", "work-friendly", "downtown", "specialty coffee", "outlets", "fast wifi"],
+    tags: ["quiet", "work-friendly", "downtown", "specialty coffee", "outlets", "fast wifi", "financial district"],
     reviews: [
       {
         username: "Sarah M.",
@@ -52,7 +52,8 @@ const allCoffeeShops = [
     image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400&h=200&fit=crop",
     rating: 4.6,
     address: "141 Waverly Pl, NYC",
-    location: "village",
+    location: "west village",
+    neighborhood: "West Village",
     wifiSpeed: "45 Mbps",
     noiseLevel: "Moderate" as const,
     powerOutlets: true,
@@ -61,7 +62,7 @@ const allCoffeeShops = [
     walkTime: "6 min",
     coordinates: [-74.0021, 40.7325] as [number, number],
     amenities: ["Free WiFi", "Power Outlets", "Community Atmosphere", "Craft Coffee", "Light Meals", "Meeting Space"],
-    tags: ["community", "meetings", "craft coffee", "outlets", "village", "moderate noise"],
+    tags: ["community", "meetings", "craft coffee", "outlets", "west village", "moderate noise"],
     reviews: [
       {
         username: "David K.",
@@ -89,7 +90,8 @@ const allCoffeeShops = [
     image: "https://images.unsplash.com/photo-1453614482241-598e5dc1d180?w=400&h=200&fit=crop",
     rating: 4.7,
     address: "30 W 8th St, NYC",
-    location: "village",
+    location: "west village",
+    neighborhood: "West Village",
     wifiSpeed: "40 Mbps",
     noiseLevel: "Quiet" as const,
     powerOutlets: true,
@@ -98,7 +100,7 @@ const allCoffeeShops = [
     walkTime: "7 min",
     coordinates: [-73.9965, 40.7328] as [number, number],
     amenities: ["Free WiFi", "Power Outlets", "Quiet Space", "Premium Coffee", "Artisan Pastries", "Study Friendly"],
-    tags: ["quiet", "premium coffee", "study friendly", "artisan", "village", "peaceful"],
+    tags: ["quiet", "premium coffee", "study friendly", "artisan", "west village", "peaceful"],
     reviews: [
       {
         username: "Amanda P.",
@@ -126,7 +128,8 @@ const allCoffeeShops = [
     image: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400&h=200&fit=crop",
     rating: 4.5,
     address: "71 Irving Pl, NYC",
-    location: "midtown",
+    location: "flatiron",
+    neighborhood: "Flatiron District",
     wifiSpeed: "35 Mbps",
     noiseLevel: "Moderate" as const,
     powerOutlets: true,
@@ -135,7 +138,7 @@ const allCoffeeShops = [
     walkTime: "10 min",
     coordinates: [-73.9870, 40.7368] as [number, number],
     amenities: ["Free WiFi", "Power Outlets", "Cozy Atmosphere", "Farm-to-Cup Coffee", "Fresh Bakes", "Laptop Friendly"],
-    tags: ["cozy", "farm-to-cup", "laptop friendly", "midtown", "fresh bakes", "comfortable"],
+    tags: ["cozy", "farm-to-cup", "laptop friendly", "flatiron", "fresh bakes", "comfortable"],
     reviews: [
       {
         username: "Emily J.",
@@ -164,6 +167,7 @@ const allCoffeeShops = [
     rating: 4.4,
     address: "270 Lafayette St, NYC",
     location: "soho",
+    neighborhood: "SoHo",
     wifiSpeed: "30 Mbps",
     noiseLevel: "Lively" as const,
     powerOutlets: false,
@@ -193,6 +197,104 @@ const allCoffeeShops = [
         keywords: ["coffee innovation", "social space", "collaborative projects", "networking", "energetic environment"]
       }
     ]
+  },
+  {
+    id: "oslo-coffee-roasters",
+    name: "Oslo Coffee Roasters",
+    image: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400&h=200&fit=crop",
+    rating: 4.6,
+    address: "422 E 75th St, NYC",
+    location: "upper east side",
+    neighborhood: "Upper East Side",
+    wifiSpeed: "42 Mbps",
+    noiseLevel: "Quiet" as const,
+    powerOutlets: true,
+    openUntil: "7 PM",
+    distance: "1.1 mi",
+    walkTime: "15 min",
+    coordinates: [-73.9442, 40.7711] as [number, number],
+    amenities: ["Free WiFi", "Power Outlets", "Scandinavian Design", "Specialty Coffee", "Pastries", "Study Friendly"],
+    tags: ["quiet", "scandinavian", "specialty coffee", "upper east side", "study friendly", "minimalist"],
+    reviews: [
+      {
+        username: "Anna K.",
+        rating: 5,
+        text: "Beautiful Scandinavian-inspired space with excellent coffee. Perfect for studying with reliable WiFi and plenty of outlets.",
+        keywords: ["scandinavian", "excellent coffee", "studying", "reliable wifi", "outlets"]
+      },
+      {
+        username: "James P.",
+        rating: 4,
+        text: "Love the minimalist design and quiet atmosphere. Great for focused work sessions. Coffee is top-notch.",
+        keywords: ["minimalist design", "quiet atmosphere", "focused work", "top-notch coffee"]
+      }
+    ]
+  },
+  {
+    id: "gregorys-coffee-flatiron",
+    name: "Gregorys Coffee",
+    image: "https://images.unsplash.com/photo-1453614482241-598e5dc1d180?w=400&h=200&fit=crop",
+    rating: 4.3,
+    address: "200 5th Ave, NYC",
+    location: "flatiron",
+    neighborhood: "Flatiron District",
+    wifiSpeed: "38 Mbps",
+    noiseLevel: "Moderate" as const,
+    powerOutlets: true,
+    openUntil: "8 PM",
+    distance: "0.8 mi",
+    walkTime: "11 min",
+    coordinates: [-73.9899, 40.7410] as [number, number],
+    amenities: ["Free WiFi", "Power Outlets", "Quick Service", "Grab & Go", "Reliable Chain", "Work Friendly"],
+    tags: ["reliable", "quick service", "flatiron", "chain", "work friendly", "convenient"],
+    reviews: [
+      {
+        username: "Michael R.",
+        rating: 4,
+        text: "Reliable spot for getting work done. Good WiFi, plenty of seating, and consistent quality. Perfect for quick meetings.",
+        keywords: ["reliable", "work", "good wifi", "seating", "quick meetings"]
+      },
+      {
+        username: "Sarah T.",
+        rating: 4,
+        text: "Great location in Flatiron with dependable service. Not the most unique but gets the job done for remote work.",
+        keywords: ["flatiron location", "dependable service", "remote work"]
+      }
+    ]
+  }
+];
+
+// NYC Neighborhoods data
+const nycNeighborhoods = [
+  {
+    name: "West Village",
+    description: "Charming cobblestone streets with cozy coffee shops",
+    shopCount: 2,
+    image: "https://images.unsplash.com/photo-1555109307-f7d9da25c244?w=300&h=200&fit=crop"
+  },
+  {
+    name: "Flatiron District",
+    description: "Business district with work-friendly coffee spots",
+    shopCount: 2,
+    image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=300&h=200&fit=crop"
+  },
+  {
+    name: "SoHo",
+    description: "Trendy area with innovative coffee experiences",
+    shopCount: 1,
+    image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=300&h=200&fit=crop"
+  },
+  {
+    name: "Financial District",
+    description: "Downtown business hub with quiet work spaces",
+    shopCount: 1,
+    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=200&fit=crop"
+  },
+  {
+    name: "Upper East Side",
+    description: "Upscale neighborhood with specialty coffee roasters",
+    shopCount: 1,
+    image: "https://images.unsplash.com/photo-1518391846015-55a9cc003b25?w=300&h=200&fit=crop"
   }
 ];
 
@@ -213,6 +315,7 @@ const synonymMap = {
 const SearchPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [neighborhoodResults, setNeighborhoodResults] = useState<any[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [matchReasons, setMatchReasons] = useState<{[key: string]: string[]}>({});
 
@@ -221,6 +324,7 @@ const SearchPage = () => {
     return (query: string) => {
       if (!query.trim()) {
         setSearchResults([]);
+        setNeighborhoodResults([]);
         setMatchReasons({});
         return;
       }
@@ -229,6 +333,7 @@ const SearchPage = () => {
       
       const queryWords = query.toLowerCase().split(/\s+/);
       const results: any[] = [];
+      const neighborhoodMatches: any[] = [];
       const reasons: {[key: string]: string[]} = {};
 
       allCoffeeShops.forEach(shop => {
@@ -238,8 +343,19 @@ const SearchPage = () => {
         // Check direct matches in shop attributes
         queryWords.forEach(word => {
           // Location matching
+          if (shop.name.toLowerCase().includes(word)) {
+            matches.push(`Coffee shop name contains "${word}"`);
+            score += 5; // Higher score for name matches
+          }
+          
+          // Location and neighborhood matching
           if (shop.location.includes(word) || shop.address.toLowerCase().includes(word)) {
             matches.push(`Located in ${shop.location}`);
+            score += 3;
+          }
+          
+          if (shop.neighborhood && shop.neighborhood.toLowerCase().includes(word)) {
+            matches.push(`Located in ${shop.neighborhood}`);
             score += 3;
           }
 
@@ -344,10 +460,26 @@ const SearchPage = () => {
         }
       });
 
+      // Search neighborhoods
+      nycNeighborhoods.forEach(neighborhood => {
+        const neighborhoodMatches = queryWords.some(word => 
+          neighborhood.name.toLowerCase().includes(word) ||
+          neighborhood.description.toLowerCase().includes(word)
+        );
+        
+        if (neighborhoodMatches) {
+          neighborhoodMatches.push({
+            ...neighborhood,
+            type: 'neighborhood'
+          });
+        }
+      });
+
       // Sort by relevance score
       results.sort((a, b) => b.searchScore - a.searchScore);
       
       setSearchResults(results);
+      setNeighborhoodResults(neighborhoodMatches);
       setMatchReasons(reasons);
       setIsSearching(false);
     };
@@ -361,6 +493,10 @@ const SearchPage = () => {
   const handleRecentSearch = (search: string) => {
     setSearchQuery(search);
     handleSearch(search);
+  };
+
+  const handleNeighborhoodClick = (neighborhoodName: string) => {
+    handleSearch(neighborhoodName.toLowerCase());
   };
 
   const recentSearches = [
@@ -404,14 +540,44 @@ const SearchPage = () => {
         {searchQuery && (
           <div>
             <h3 className="text-lg font-semibold mb-4">
-              {isSearching ? "Searching..." : `Search Results ${searchResults.length > 0 ? `(${searchResults.length})` : ""}`}
+              {isSearching ? "Searching..." : `Search Results ${searchResults.length + neighborhoodResults.length > 0 ? `(${searchResults.length + neighborhoodResults.length})` : ""}`}
             </h3>
             {isSearching ? (
               <div className="text-center py-8 text-muted-foreground">
                 Finding the perfect coffee shops for you...
               </div>
-            ) : searchResults.length > 0 ? (
+            ) : (searchResults.length > 0 || neighborhoodResults.length > 0) ? (
               <div className="space-y-4">
+                {/* Neighborhood Results */}
+                {neighborhoodResults.map((neighborhood, index) => (
+                  <Card key={`neighborhood-${index}`} className="active:scale-95 transition-all duration-200 cursor-pointer" onClick={() => handleNeighborhoodClick(neighborhood.name)}>
+                    <CardContent className="p-0">
+                      <div className="flex">
+                        <img
+                          src={neighborhood.image}
+                          alt={neighborhood.name}
+                          className="w-20 h-20 object-cover"
+                        />
+                        <div className="flex-1 p-4">
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2 mb-1">
+                                <Building2 className="w-4 h-4 text-primary" />
+                                <h3 className="font-semibold">{neighborhood.name}</h3>
+                                <Badge variant="outline" className="text-xs">
+                                  {neighborhood.shopCount} shops
+                                </Badge>
+                              </div>
+                              <p className="text-sm text-muted-foreground">{neighborhood.description}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+                
+                {/* Coffee Shop Results */}
                 {searchResults.map((shop, index) => (
                   <div key={index} className="space-y-2">
                     <MobileCoffeeShopCard {...shop} />
@@ -449,6 +615,30 @@ const SearchPage = () => {
         )}
 
         {/* Popular Filters */}
+        {!searchQuery && (
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Browse by Neighborhood</h3>
+            <div className="space-y-3">
+              {nycNeighborhoods.map((neighborhood, index) => (
+                <Card key={index} className="active:scale-95 transition-all duration-200 cursor-pointer" onClick={() => handleNeighborhoodClick(neighborhood.name)}>
+                  <CardContent className="p-4 flex items-center gap-4">
+                    <img
+                      src={neighborhood.image}
+                      alt={neighborhood.name}
+                      className="w-16 h-16 object-cover rounded-lg"
+                    />
+                    <div className="flex-1">
+                      <h4 className="font-semibold">{neighborhood.name}</h4>
+                      <p className="text-sm text-muted-foreground">{neighborhood.description}</p>
+                      <Badge variant="outline" className="text-xs mt-1">{neighborhood.shopCount} coffee shops</Badge>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
         {!searchQuery && (
           <div>
             <h3 className="text-lg font-semibold mb-4">Popular Searches</h3>
@@ -499,14 +689,14 @@ const SearchPage = () => {
                   <div className="space-y-1 text-xs text-muted-foreground">
                     <p>• "quiet workspace downtown"</p>
                     <p>• "coffee shops with charging ports"</p>
-                    <p>• "study spots with fast internet"</p>
+                    <p>• "Blue Bottle" or "Oslo Coffee"</p>
                     <p>• "meeting spaces in midtown"</p>
                   </div>
                 </div>
                 <div className="space-y-2">
                   <p className="text-sm font-medium">Search by features:</p>
                   <div className="flex flex-wrap gap-1">
-                    {["outlets", "quiet", "wifi", "study", "work", "cozy", "downtown"].map((tag) => (
+                    {["outlets", "quiet", "wifi", "study", "work", "cozy", "west village", "flatiron"].map((tag) => (
                       <Badge 
                         key={tag} 
                         variant="outline" 
