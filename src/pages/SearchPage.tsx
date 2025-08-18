@@ -390,7 +390,6 @@ const SearchPage = () => {
                 className="pl-10 h-12 rounded-xl bg-secondary border-0 text-base"
                 value={searchQuery}
                 onChange={(e) => handleSearch(e.target.value)}
-                autoFocus
               />
             </div>
             <Button variant="outline" size="lg" className="h-12 px-4">
