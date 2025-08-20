@@ -3,9 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import MobileBottomNav from "@/components/MobileBottomNav";
 import MobileCoffeeShopCard from "@/components/MobileCoffeeShopCard";
-import { Search as SearchIcon, SlidersHorizontal, MapPin, Clock, Star, Wifi, Zap, Volume2, Quote, Building2 } from "lucide-react";
+import { Search as SearchIcon, SlidersHorizontal, MapPin, Clock, Star, Wifi, Zap, Volume2, Quote, Building2, Percent, Gift, Calendar, Navigation2, Filter } from "lucide-react";
 
 // Enhanced coffee shop data with detailed reviews and attributes
 const allCoffeeShops = [{
@@ -264,6 +265,94 @@ const allCoffeeShops = [{
   }
 ];
 
+// Discounts data
+const discountsData = [
+  {
+    id: "blue-bottle-student",
+    shopName: "Blue Bottle Coffee",
+    shopId: "blue-bottle-coffee",
+    logo: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=100&h=100&fit=crop",
+    discount: "15% off for students",
+    description: "Show valid student ID to get 15% off your entire order",
+    offerType: "Student Discount",
+    expirationDate: "2024-12-31",
+    distance: "0.2 mi",
+    walkTime: "3 min",
+    isActive: true,
+    terms: "Valid student ID required. Cannot be combined with other offers."
+  },
+  {
+    id: "joe-coffee-loyalty",
+    shopName: "Joe Coffee Company",
+    shopId: "joe-coffee-company",
+    logo: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=100&h=100&fit=crop",
+    discount: "Buy 9, Get 1 Free",
+    description: "Loyalty card program - collect 9 stamps and get your 10th drink free",
+    offerType: "Loyalty Program",
+    expirationDate: "2024-12-31",
+    distance: "0.4 mi",
+    walkTime: "6 min",
+    isActive: true,
+    terms: "One stamp per visit. Valid for drinks only."
+  },
+  {
+    id: "stumptown-happy-hour",
+    shopName: "Stumptown Coffee",
+    shopId: "stumptown-coffee",
+    logo: "https://images.unsplash.com/photo-1453614482241-598e5dc1d180?w=100&h=100&fit=crop",
+    discount: "20% off after 3 PM",
+    description: "Happy hour pricing on all beverages and pastries",
+    offerType: "Happy Hour",
+    expirationDate: "2024-11-30",
+    distance: "0.5 mi",
+    walkTime: "7 min",
+    isActive: true,
+    terms: "Valid Monday-Friday 3-6 PM only."
+  },
+  {
+    id: "irving-farm-first-time",
+    shopName: "Irving Farm Coffee",
+    shopId: "irving-farm-coffee",
+    logo: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=100&h=100&fit=crop",
+    discount: "$5 off first order",
+    description: "New customer special - $5 off your first order of $15 or more",
+    offerType: "New Customer",
+    expirationDate: "2024-12-15",
+    distance: "0.7 mi",
+    walkTime: "10 min",
+    isActive: true,
+    terms: "Minimum $15 purchase. One per customer."
+  },
+  {
+    id: "oslo-weekend-special",
+    shopName: "Oslo Coffee Roasters",
+    shopId: "oslo-coffee-roasters",
+    logo: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=100&h=100&fit=crop",
+    discount: "Free pastry with coffee",
+    description: "Weekend special - get a free pastry with any coffee purchase",
+    offerType: "Weekend Special",
+    expirationDate: "2024-11-25",
+    distance: "1.1 mi",
+    walkTime: "15 min",
+    isActive: true,
+    terms: "Weekends only. While supplies last."
+  },
+  {
+    id: "gregorys-group-discount",
+    shopName: "Gregorys Coffee",
+    shopId: "gregorys-coffee-flatiron",
+    logo: "https://images.unsplash.com/photo-1453614482241-598e5dc1d180?w=100&h=100&fit=crop",
+    discount: "10% off orders over $25",
+    description: "Perfect for team meetings - 10% off when you spend $25 or more",
+    offerType: "Group Discount",
+    expirationDate: "2024-12-20",
+    distance: "0.8 mi",
+    walkTime: "11 min",
+    isActive: true,
+    terms: "Minimum $25 purchase required."
+  }
+];
+
 // NYC Neighborhoods data
 const nycNeighborhoods = [
   {
@@ -318,6 +407,65 @@ const SearchPage = () => {
   const [neighborhoodResults, setNeighborhoodResults] = useState<any[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [matchReasons, setMatchReasons] = useState<{[key: string]: string[]}>({});
+  const [discountFilter, setDiscountFilter] = useState<string>("all");
+  const [distanceFilter, setDistanceFilter] = useState<string>("all");
+  const [offerTypeFilter, setOfferTypeFilter] = useState<string>("all");
+
+  // Filter discounts based on selected filters
+  const filteredDiscounts = useMemo(() => {
+    return discountsData.filter(discount => {
+      // Filter by offer type
+      if (offerTypeFilter !== "all" && discount.offerType !== offerTypeFilter) {
+        return false;
+      }
+      
+      // Filter by distance
+      if (distanceFilter !== "all") {
+        const distance = parseFloat(discount.distance);
+        switch (distanceFilter) {
+          case "0.5":
+            if (distance > 0.5) return false;
+            break;
+          case "1.0":
+            if (distance > 1.0) return false;
+            break;
+          case "2.0":
+            if (distance > 2.0) return false;
+            break;
+        }
+      }
+      
+      // Filter by expiration (active offers only)
+      if (discountFilter === "active") {
+        const expirationDate = new Date(discount.expirationDate);
+        const today = new Date();
+        if (expirationDate < today) return false;
+      }
+      
+      return discount.isActive;
+    });
+  }, [discountFilter, distanceFilter, offerTypeFilter]);
+
+  // Get unique offer types for filter
+  const offerTypes = [...new Set(discountsData.map(d => d.offerType))];
+
+  const formatExpirationDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const today = new Date();
+    const diffTime = date.getTime() - today.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    if (diffDays < 0) return "Expired";
+    if (diffDays === 0) return "Expires today";
+    if (diffDays === 1) return "Expires tomorrow";
+    if (diffDays <= 7) return `Expires in ${diffDays} days`;
+    
+    return date.toLocaleDateString('en-US', { 
+      month: 'short', 
+      day: 'numeric',
+      year: date.getFullYear() !== today.getFullYear() ? 'numeric' : undefined
+    });
+  };
 
   // Enhanced search function with natural language processing
   const performIntelligentSearch = useMemo(() => {
@@ -609,6 +757,119 @@ const SearchPage = () => {
               <div className="text-center py-8 text-muted-foreground">
                 <p className="mb-2">No coffee shops found matching "{searchQuery}"</p>
                 <p className="text-sm">Try searching for "quiet workspace", "outlets downtown", or "study spots"</p>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Discounts Section */}
+        {!searchQuery && (
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold">Local Discounts</h3>
+              <Badge variant="secondary" className="text-xs">
+                {filteredDiscounts.length} offers
+              </Badge>
+            </div>
+            
+            {/* Discount Filters */}
+            <div className="grid grid-cols-3 gap-2 mb-4">
+              <Select value={offerTypeFilter} onValueChange={setOfferTypeFilter}>
+                <SelectTrigger className="h-9">
+                  <SelectValue placeholder="Offer Type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Types</SelectItem>
+                  {offerTypes.map(type => (
+                    <SelectItem key={type} value={type}>{type}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              
+              <Select value={distanceFilter} onValueChange={setDistanceFilter}>
+                <SelectTrigger className="h-9">
+                  <SelectValue placeholder="Distance" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Any Distance</SelectItem>
+                  <SelectItem value="0.5">Within 0.5 mi</SelectItem>
+                  <SelectItem value="1.0">Within 1 mi</SelectItem>
+                  <SelectItem value="2.0">Within 2 mi</SelectItem>
+                </SelectContent>
+              </Select>
+              
+              <Select value={discountFilter} onValueChange={setDiscountFilter}>
+                <SelectTrigger className="h-9">
+                  <SelectValue placeholder="Status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Offers</SelectItem>
+                  <SelectItem value="active">Active Only</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            
+            {/* Discount Cards */}
+            <div className="space-y-3">
+              {filteredDiscounts.map((discount) => (
+                <Card key={discount.id} className="overflow-hidden">
+                  <CardContent className="p-0">
+                    <div className="flex">
+                      <img
+                        src={discount.logo}
+                        alt={discount.shopName}
+                        className="w-16 h-16 object-cover"
+                      />
+                      <div className="flex-1 p-3">
+                        <div className="flex items-start justify-between mb-2">
+                          <div className="flex-1 min-w-0">
+                            <h4 className="font-semibold text-sm truncate">{discount.shopName}</h4>
+                            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                              <Navigation2 className="w-3 h-3" />
+                              <span>{discount.distance}</span>
+                              <span>•</span>
+                              <span>{discount.walkTime}</span>
+                            </div>
+                          </div>
+                          <Badge variant="outline" className="text-xs ml-2">
+                            {discount.offerType}
+                          </Badge>
+                        </div>
+                        
+                        <div className="mb-2">
+                          <div className="flex items-center gap-2 mb-1">
+                            <Percent className="w-4 h-4 text-primary" />
+                            <span className="font-medium text-sm text-primary">{discount.discount}</span>
+                          </div>
+                          <p className="text-xs text-muted-foreground">{discount.description}</p>
+                        </div>
+                        
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                            <Calendar className="w-3 h-3" />
+                            <span>{formatExpirationDate(discount.expirationDate)}</span>
+                          </div>
+                          <Button size="sm" className="h-7 px-3 text-xs">
+                            <Gift className="w-3 h-3 mr-1" />
+                            Redeem
+                          </Button>
+                        </div>
+                        
+                        {discount.terms && (
+                          <p className="text-xs text-muted-foreground mt-2 italic">{discount.terms}</p>
+                        )}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            
+            {filteredDiscounts.length === 0 && (
+              <div className="text-center py-8 text-muted-foreground">
+                <Gift className="w-12 h-12 mx-auto mb-2 opacity-50" />
+                <p className="mb-2">No discounts match your filters</p>
+                <p className="text-sm">Try adjusting your filter settings</p>
               </div>
             )}
           </div>
