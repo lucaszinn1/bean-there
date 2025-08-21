@@ -406,6 +406,7 @@ const SearchPage = () => {
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [neighborhoodResults, setNeighborhoodResults] = useState<any[]>([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [selectedNeighborhood, setSelectedNeighborhood] = useState<string>("");
   const [matchReasons, setMatchReasons] = useState<{[key: string]: string[]}>({});
   const [discountFilter, setDiscountFilter] = useState<string>("all");
   const [distanceFilter, setDistanceFilter] = useState<string>("all");
@@ -644,7 +645,12 @@ const SearchPage = () => {
   };
 
   const handleNeighborhoodClick = (neighborhoodName: string) => {
-    handleSearch(neighborhoodName.toLowerCase());
+    setSelectedNeighborhood(neighborhoodName);
+    setSearchQuery("");
+    const filteredShops = allCoffeeShops.filter(shop => 
+      shop.neighborhood && shop.neighborhood.toLowerCase() === neighborhoodName.toLowerCase()
+    );
+    setSearchResults(filteredShops);
   };
 
   const recentSearches = [
@@ -660,6 +666,12 @@ const SearchPage = () => {
     { icon: Zap, name: "Power Outlets", color: "text-yellow-600", query: "outlets" },
     { icon: Clock, name: "Open Late", color: "text-purple-600", query: "open late" },
   ];
+
+  const clearNeighborhoodFilter = () => {
+    setSelectedNeighborhood("");
+    setSearchResults([]);
+    setSearchQuery("");
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -685,6 +697,17 @@ const SearchPage = () => {
 
       <div className="px-4 py-6 space-y-6">
         {/* Search Results */}
+        {selectedNeighborhood && (
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold">Coffee Shops in {selectedNeighborhood}</h3>
+              <Button variant="outline" size="sm" onClick={clearNeighborhoodFilter}>
+                Clear Filter
+              </Button>
+            </div>
+          </div>
+        )}
+
         {searchQuery && (
           <div>
             <h3 className="text-lg font-semibold mb-4">
@@ -762,8 +785,179 @@ const SearchPage = () => {
           </div>
         )}
 
-        {/* Discounts Section */}
+        {/* Browse by Neighborhood */}
         {!searchQuery && (
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold">Local Discounts</h3>
+              <Badge variant="secondary" className="text-xs">
+                {filteredDiscounts.length} offers
+              </Badge>
+            </div>
+            
+            <div className="space-y-3">
+              {nycNeighborhoods.map((neighborhood, index) => (
+                <Card key={index} className="active:scale-95 transition-all duration-200 cursor-pointer" onClick={() => handleNeighborhoodClick(neighborhood.name)}>
+                  <CardContent className="p-4 flex items-center gap-4">
+                    <img
+                      src={neighborhood.image}
+                      alt={neighborhood.name}
+                      className="w-16 h-16 object-cover rounded-lg"
+                    />
+                    <div className="flex-1">
+                      <h4 className="font-semibold">{neighborhood.name}</h4>
+                      <p className="text-sm text-muted-foreground">{neighborhood.description}</p>
+                      <Badge variant="outline" className="text-xs mt-1">{neighborhood.shopCount} coffee shops</Badge>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            
+            {/* Discount Filters */}
+            <div className="grid grid-cols-3 gap-2 mb-4">
+              <Select value={offerTypeFilter} onValueChange={setOfferTypeFilter}>
+                <SelectTrigger className="h-9">
+                  <SelectValue placeholder="Offer Type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Types</SelectItem>
+                  {offerTypes.map(type => (
+                    <SelectItem key={type} value={type}>{type}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              
+              <Select value={distanceFilter} onValueChange={setDistanceFilter}>
+                <SelectTrigger className="h-9">
+                  <SelectValue placeholder="Distance" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Any Distance</SelectItem>
+                  <SelectItem value="0.5">Within 0.5 mi</SelectItem>
+                  <SelectItem value="1.0">Within 1 mi</SelectItem>
+                  <SelectItem value="2.0">Within 2 mi</SelectItem>
+                </SelectContent>
+              </Select>
+              
+              <Select value={discountFilter} onValueChange={setDiscountFilter}>
+                <SelectTrigger className="h-9">
+                  <SelectValue placeholder="Status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Offers</SelectItem>
+                  <SelectItem value="active">Active Only</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            
+            {/* Discount Cards */}
+            <div className="space-y-3">
+              {filteredDiscounts.map((discount) => (
+                <Card key={discount.id} className="overflow-hidden">
+                  <CardContent className="p-0">
+                    <div className="flex">
+                      <img
+                        src={discount.logo}
+                        alt={discount.shopName}
+                        className="w-16 h-16 object-cover"
+                      />
+                      <div className="flex-1 p-3">
+                        <div className="flex items-start justify-between mb-2">
+                          <div className="flex-1 min-w-0">
+                            <h4 className="font-semibold text-sm truncate">{discount.shopName}</h4>
+                            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                              <Navigation2 className="w-3 h-3" />
+                              <span>{discount.distance}</span>
+                              <span>•</span>
+                              <span>{discount.walkTime}</span>
+                            </div>
+                          </div>
+                          <Badge variant="outline" className="text-xs ml-2">
+                            {discount.offerType}
+                          </Badge>
+                        </div>
+                        
+                        <div className="mb-2">
+                          <div className="flex items-center gap-2 mb-1">
+                            <Percent className="w-4 h-4 text-primary" />
+                            <span className="font-medium text-sm text-primary">{discount.discount}</span>
+                          </div>
+                          <p className="text-xs text-muted-foreground">{discount.description}</p>
+                        </div>
+                        
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                            <Calendar className="w-3 h-3" />
+                            <span>{formatExpirationDate(discount.expirationDate)}</span>
+                          </div>
+                          <Button size="sm" className="h-7 px-3 text-xs">
+        {/* Popular Filters */}
+        {!searchQuery && (
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Browse by Neighborhood</h3>
+            <div className="space-y-3">
+              {nycNeighborhoods.map((neighborhood, index) => (
+                <Card key={index} className="active:scale-95 transition-all duration-200 cursor-pointer" onClick={() => handleNeighborhoodClick(neighborhood.name)}>
+                  <CardContent className="p-4 flex items-center gap-4">
+                    <img
+                      src={neighborhood.image}
+                      alt={neighborhood.name}
+                      className="w-16 h-16 object-cover rounded-lg"
+                    />
+                    <div className="flex-1">
+                      <h4 className="font-semibold">{neighborhood.name}</h4>
+                      <p className="text-sm text-muted-foreground">{neighborhood.description}</p>
+                      <Badge variant="outline" className="text-xs mt-1">{neighborhood.shopCount} coffee shops</Badge>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {!searchQuery && (
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Popular Searches</h3>
+            <div className="grid grid-cols-2 gap-3">
+              {popularFilters.map((filter, index) => (
+                <Card 
+                  key={index} 
+                  className="active:scale-95 transition-all duration-200 cursor-pointer"
+                  onClick={() => handleSearch(filter.query)}
+                >
+                  <CardContent className="p-4 flex items-center gap-3">
+                    <filter.icon className={`w-5 h-5 ${filter.color}`} />
+                    <span className="font-medium">{filter.name}</span>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Recent Searches */}
+        {!searchQuery && (
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Try These Searches</h3>
+            <div className="space-y-2">
+              {recentSearches.map((search, index) => (
+                <div 
+                  key={index}
+                  className="flex items-center gap-3 p-3 bg-secondary rounded-lg active:bg-muted transition-colors cursor-pointer"
+                  onClick={() => handleRecentSearch(search)}
+                >
+                  <SearchIcon className="w-4 h-4 text-muted-foreground" />
+                  <span className="text-foreground">{search}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Discounts Section - Moved to bottom */}
+        {!searchQuery && !selectedNeighborhood && (
           <div>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold">Local Discounts</h3>
@@ -872,105 +1066,6 @@ const SearchPage = () => {
                 <p className="text-sm">Try adjusting your filter settings</p>
               </div>
             )}
-          </div>
-        )}
-
-        {/* Popular Filters */}
-        {!searchQuery && (
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Browse by Neighborhood</h3>
-            <div className="space-y-3">
-              {nycNeighborhoods.map((neighborhood, index) => (
-                <Card key={index} className="active:scale-95 transition-all duration-200 cursor-pointer" onClick={() => handleNeighborhoodClick(neighborhood.name)}>
-                  <CardContent className="p-4 flex items-center gap-4">
-                    <img
-                      src={neighborhood.image}
-                      alt={neighborhood.name}
-                      className="w-16 h-16 object-cover rounded-lg"
-                    />
-                    <div className="flex-1">
-                      <h4 className="font-semibold">{neighborhood.name}</h4>
-                      <p className="text-sm text-muted-foreground">{neighborhood.description}</p>
-                      <Badge variant="outline" className="text-xs mt-1">{neighborhood.shopCount} coffee shops</Badge>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {!searchQuery && (
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Popular Searches</h3>
-            <div className="grid grid-cols-2 gap-3">
-              {popularFilters.map((filter, index) => (
-                <Card 
-                  key={index} 
-                  className="active:scale-95 transition-all duration-200 cursor-pointer"
-                  onClick={() => handleSearch(filter.query)}
-                >
-                  <CardContent className="p-4 flex items-center gap-3">
-                    <filter.icon className={`w-5 h-5 ${filter.color}`} />
-                    <span className="font-medium">{filter.name}</span>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Recent Searches */}
-        {!searchQuery && (
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Try These Searches</h3>
-            <div className="space-y-2">
-              {recentSearches.map((search, index) => (
-                <div 
-                  key={index}
-                  className="flex items-center gap-3 p-3 bg-secondary rounded-lg active:bg-muted transition-colors cursor-pointer"
-                  onClick={() => handleRecentSearch(search)}
-                >
-                  <SearchIcon className="w-4 h-4 text-muted-foreground" />
-                  <span className="text-foreground">{search}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Search Tips */}
-        {!searchQuery && (
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Search Tips</h3>
-            <Card>
-              <CardContent className="p-4 space-y-3">
-                <div className="space-y-2">
-                  <p className="text-sm font-medium">Try natural language searches:</p>
-                  <div className="space-y-1 text-xs text-muted-foreground">
-                    <p>• "quiet workspace downtown"</p>
-                    <p>• "coffee shops with charging ports"</p>
-                    <p>• "Blue Bottle" or "Oslo Coffee"</p>
-                    <p>• "meeting spaces in midtown"</p>
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <p className="text-sm font-medium">Search by features:</p>
-                  <div className="flex flex-wrap gap-1">
-                    {["outlets", "quiet", "wifi", "study", "work", "cozy", "west village", "flatiron"].map((tag) => (
-                      <Badge 
-                        key={tag} 
-                        variant="outline" 
-                        className="text-xs cursor-pointer hover:bg-primary hover:text-primary-foreground"
-                        onClick={() => handleSearch(tag)}
-                      >
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         )}
       </div>
