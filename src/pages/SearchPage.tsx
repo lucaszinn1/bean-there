@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import CoffeeShopCard from '@/components/CoffeeShopCard';
+import MobileBottomNav from '@/components/MobileBottomNav';
 
 const SearchPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -673,6 +674,7 @@ const SearchPage = () => {
       </div>
 
       <div className="h-20" />
+      <MobileBottomNav />
     </div>
   );
 };
