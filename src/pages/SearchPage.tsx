@@ -19,6 +19,61 @@ const SearchPage = () => {
   const [distanceFilter, setDistanceFilter] = useState<string>("all");
   const [offerTypeFilter, setOfferTypeFilter] = useState<string>("all");
 
+  // Coffee shop templates for generating unlimited content (from Index.tsx)
+  const coffeeShopTemplates = [
+    {
+      names: ["Third Rail Coffee", "Bluestone Lane", "Toby's Estate Coffee", "Ninth Street Espresso", "Birch Coffee", "Gregory's Coffee", "Think Coffee", "Oslo Coffee Roasters", "City of Saints Coffee Roasters", "Everyman Espresso", "Gasoline Alley Coffee", "Mud Coffee", "Abraço", "Happy Bones", "Box Kite Coffee", "Café Grumpy", "Culture Espresso", "Devoción", "Ground Central Coffee", "Hi-Collar"],
+      addresses: ["Sullivan St", "W 3rd St", "N 6th St", "E 9th St", "E 27th St", "Broadway", "Mercer St", "E 4th St", "Lafayette St", "E 13th St", "Franklin St", "E 9th St", "E 7th St", "Crosby St", "W 4th St", "Chelsea Market", "W 38th St", "Grand St", "E 14th St", "E 10th St"],
+      images: [
+        "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&h=200&fit=crop",
+        "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400&h=200&fit=crop",
+        "https://images.unsplash.com/photo-1453614482241-598e5dc1d180?w=400&h=200&fit=crop",
+        "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400&h=200&fit=crop",
+        "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=200&fit=crop"
+      ]
+    }
+  ];
+
+  // Function to generate coffee shops (from Index.tsx)
+  const generateCoffeeShops = (startIndex: number, count: number = 20) => {
+    const shops = [];
+    const template = coffeeShopTemplates[0];
+    
+    for (let i = 0; i < count; i++) {
+      const index = (startIndex + i) % template.names.length;
+      const nameIndex = index % template.names.length;
+      const addressIndex = index % template.addresses.length;
+      const imageIndex = index % template.images.length;
+      
+      const baseDistance = 1.5 + (startIndex + i) * 0.3;
+      const baseWalkTime = Math.round(baseDistance * 13);
+      
+      // Generate coordinates in NYC area
+      const baseLat = 40.7128;
+      const baseLng = -74.0060;
+      const latOffset = (Math.random() - 0.5) * 0.05;
+      const lngOffset = (Math.random() - 0.5) * 0.08;
+      
+      shops.push({
+        id: `${template.names[nameIndex].toLowerCase().replace(/[^a-z0-9]/g, '-')}-${startIndex + i}`,
+        name: template.names[nameIndex],
+        image: template.images[imageIndex],
+        rating: Math.round((3.8 + Math.random() * 1.2) * 10) / 10,
+        address: `${50 + (index * 17) % 200} ${template.addresses[addressIndex]}, NYC`,
+        neighborhood: ["West Village", "Flatiron District", "SoHo", "Financial District", "Upper East Side"][index % 5],
+        wifiSpeed: `${25 + Math.floor(Math.random() * 40)} Mbps`,
+        noiseLevel: ["Quiet", "Moderate", "Lively"][index % 3] as "Quiet" | "Moderate" | "Lively",
+        powerOutlets: Math.random() > 0.2,
+        openUntil: ["7 PM", "8 PM", "9 PM", "10 PM"][index % 4],
+        distance: `${baseDistance.toFixed(1)} mi`,
+        walkTime: `${baseWalkTime} min`,
+        coordinates: [baseLng + lngOffset, baseLat + latOffset] as [number, number]
+      });
+    }
+    
+    return shops;
+  };
+
   // Sample coffee shops data with neighborhoods
   const allCoffeeShops = [
     {
@@ -127,7 +182,10 @@ const SearchPage = () => {
       ]
     }
   ];
-
+  
+  // Combine static coffee shops with generated ones
+  const dynamicShops = generateCoffeeShops(allCoffeeShops.length, 20);
+  const combinedCoffeeShops = [...allCoffeeShops, ...dynamicShops];
   // NYC Neighborhoods data
   const nycNeighborhoods = [
     {
@@ -280,7 +338,7 @@ const SearchPage = () => {
       const reasons: {[key: string]: string[]} = {};
 
       // Search coffee shops
-      allCoffeeShops.forEach(shop => {
+      combinedCoffeeShops.forEach(shop => {
         const { score, reasons: shopReasons } = calculateRelevanceScore(shop, searchTerms);
         if (score > 0) {
           results.push({ ...shop, relevanceScore: score });
@@ -336,7 +394,7 @@ const SearchPage = () => {
   const handleNeighborhoodClick = (neighborhoodName: string) => {
     setSelectedNeighborhood(neighborhoodName);
     setSearchQuery("");
-    const filteredShops = allCoffeeShops.filter(shop => 
+    const filteredShops = combinedCoffeeShops.filter(shop => 
       shop.neighborhood && shop.neighborhood.toLowerCase() === neighborhoodName.toLowerCase()
     );
     setSearchResults(filteredShops);
