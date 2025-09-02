@@ -54,7 +54,7 @@ const MobileCoffeeShopCard = ({
     <Card className="overflow-hidden shadow-card active:scale-95 transition-all duration-200">
       <div className="relative">
         <img
-          src={image}
+          src="https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?w=400&h=200&fit=crop"
           alt={name}
           className="w-full h-32 object-cover"
         />
